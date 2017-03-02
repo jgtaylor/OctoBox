@@ -1,0 +1,21 @@
+[
+  {
+    "deviceID": "b6d1edd9-1b6e-5cac-5993-696a0c7997b6",
+    "deviceType": "BH1750",
+    "deviceFunctions": [
+      "read",
+      "readCont"
+    ]
+  },
+  {
+    "deviceID": "14be0ef0-8a5c-95af-b009-a4a9afd3264f",
+    "deviceType": "dht",
+    "deviceFunctions": [
+      "read"
+    ],
+    "deviceLocation": [
+      43.4456,
+      8.3345
+    ]
+  }
+]
