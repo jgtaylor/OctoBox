@@ -8,7 +8,7 @@ WebSocketSend(JSON.stringify(["cmd", {
         }, {
             deviceID: "other-uuid-string",
             cmd: "0.5"
-        }])
+        }]);
 ```
 
 - `array` of `objects` representing an individual peripheral, including how to interact with it, meta information like units or capabilities, etc.
