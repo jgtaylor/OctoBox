@@ -2,7 +2,13 @@
 
 a module (brain or simple MCU) must provide the following info upon request. The server should be able to understand and implement something like:
 ```javascript
-WebSocketSend(JSON.stringify([ "cmd", { deviceID: "uuid-string", cmd: "on"}, {deviceID: "other-uuid-string", cmd: "0.5"} ])
+WebSocketSend(JSON.stringify(["cmd", {
+            deviceID: "uuid-string",
+            cmd: "on"
+        }, {
+            deviceID: "other-uuid-string",
+            cmd: "0.5"
+        }])
 ```
 
 - `array` of `objects` representing an individual peripheral, including how to interact with it, meta information like units or capabilities, etc.
@@ -23,6 +29,7 @@ WebSocketSend(JSON.stringify([ "cmd", { deviceID: "uuid-string", cmd: "on"}, {de
   ```
   Such an object might be used to determine potential saftey issues (e.g. a power meter says a line is using 15A/250AC, but the `limits` field sets a safety limit so the app might turn it off).
   Or something like the following:
+
   ```json
   "meta": {
 	  "outputs": [
