@@ -8,4 +8,3 @@ const Later = require("later"),
 	Devices = require("./lib/devices");
 var devices = Devices();
 console.log(devices.list());
-devices.save();
