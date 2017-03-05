@@ -46,13 +46,19 @@ The following is an example "frame", or "packet" from the client to the server. 
 ]
 ```
 
-This allows stacking messages into a single delivery, avoiding a server response to acknowledge receipt of the message. it also enables non-sequential implementations - a particular brain module might only be concerned with registration after it knows what's on offer.
+The above represents a fragment of the Spiffy Spaceship system. It first registers itself with a Device Engine instance, then provides 2 devices, a `button` and a `virtual`.
+
+The `button` appears simple enough, and what it does is mostly only relevant to the applications that will use it.
+
+The `virtual`, on the other hand, may not be so simple with such commands as `takeoff` & `land`. In this case, such things are likely layered below with many components that enable the takeoff and landing, but are not visible to the Device Engine. The `meta` property becomes useful here, as the Device Engine can forward on the meta values to the application so that there may be a button rendered that, when clicked, starts the Spaceship or makes it take-off.
+
+This allows stacking messages into a single delivery, avoiding a server response to acknowledging receipt of the message. it also enables non-sequential implementations - a particular brain module might only be concerned with registration after it knows what's on offer.
 
 ## General description
 
-(the use of the word "packets" here represents a logical grouping, not the physical TCP / UDP datagram packets) Packets are `arrays` consisting of tuples. Each tuple comprises a message via a string describing the incoming data, followed by an object of that data. The packet identifier _should_ have an RDF Vocabulary somewhere, eventually.
+(the use of the word "packets" here represents a logical grouping, not the semi-physical TCP / UDP datagram packets) Packets are `arrays` consisting of tuples. Each tuple comprises a message via a string describing the incoming data, followed by an object of that data. The packet identifier _should_ have an RDF Vocabulary somewhere, eventually.
 
-(It may be easier to refer to a single JSON tuple as a message, and a collection of tuples as a packet)
+(It may be easier to refer to a single JSON tuple as a message, and a collection [defined as >0] of tuples as a packet)
 
 ## more formal description:
 
@@ -61,6 +67,8 @@ Each message will consist of a JSON `Array` tuple. [ "x", { y: "z" } ]
 Each tuple will have as a Zero element, the message type (e.g. `registrationReq`, `capabilitiesList` as in the example above).
 
 The objects in the payload _shall_ be defined by the message type.
+
+Multiple messages may be sent at once, as in the example above.
 
 ### Initial Message Descriptions
 
