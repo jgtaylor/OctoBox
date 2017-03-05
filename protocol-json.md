@@ -77,3 +77,14 @@ Multiple messages may be sent at once, as in the example above.
 `capabilitiesList`: shall describe (_subject to change_) the devices, or services being offered. This should include enough information so that the server can access the device. Minimally, this should include a `deviceID` and a `deviceType`.
 
 `cmds`: shall reference a previously registered device, and a specific command (e.g. `read`, `calibrate`, `synchronize`).
+
+
+
+#### Notes:
+
+-  add back-preassure/flow-control/busy/abort
+-  define full message from registration to work.
+-  part of client-description is "enable-flow-control", requires busy/ready messages.
+
+
+-  full protocol should be "start" "run" "exit".
