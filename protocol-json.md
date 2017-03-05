@@ -9,38 +9,63 @@ That said, the server should be tracking the clients individually; that is, each
 The following is an example "frame", or "packet" from the client to the server. It includes a "registration" message and "capabilitiesList" message:
 ```json
 [
-	"registrationReq",
-	{
-		"moduleID": "my-Spiffy-SpaceShip-system",
-		"certHash": "xalks923alksoads0-knajfo13323#@!",
-		"info": "https://spiffy-spaceships.com/guidance/am22394",
-		"OAuth": "some kind of key or identity thing here",
-		"apiVersion": "2.3a",
-		"SupportedExentions": ["ssh", "https", "mqtt", "rpc"],
-		"rdfVocabulary": "http://container.io/vocabulary/spiffy-spaceships"
-	},
-	"capabilitiesList",
-	{
-		"devices": [
-			{
-				"deviceID": "uuid-string",
-				"deviceType": "button",
-				"deviceCmds": ["on", "off", "toggle"],
-				"rdfVocabulary": "http://container.io/vocabulary/spiffy-spaceships/uuid-string"
-			},
-			{
-				"deviceID": "uuid-string-2",
-				"deviceType": "virtual",
-				"deviceCmds": ["start", "takeoff", "land", "shutdown"],
-				"rdfVocabulary": "http://container.io/vocabulary/spiffy-spaceships/uuid-string-2",
-				"meta": {
-					"userMsg": "Buckle up, we're taking off!",
-					"defaultMode": "novice"
-				}
-			}
-		]
-	}
+    [
+        "registrationReq",
+        {
+            "moduleID": "my-Spiffy-SpaceShip-system",
+            "certHash": "xalks923alksoads0-knajfo13323#@!",
+            "info": "https://spiffy-spaceships.com/guidance/am22394",
+            "OAuth": "some kind of key or identity thing here",
+            "apiVersion": "2.3a",
+            "SupportedExentions": ["ssh", "https", "mqtt", "rpc"],
+            "rdfVocabulary": "http://container.io/vocabulary/spiffy-spaceships"
+        }
+    ],
+    [
+        "capabilitiesList",
+        {
+            "devices": [{
+                    "deviceID": "uuid-string",
+                    "deviceType": "button",
+                    "deviceCmds": ["on", "off", "toggle"],
+                    "rdfVocabulary": "http://container.io/vocabulary/spiffy-spaceships/uuid-string"
+                },
+                {
+                    "deviceID": "uuid-string-2",
+                    "deviceType": "virtual",
+                    "deviceCmds": ["start", "takeoff", "land", "shutdown"],
+                    "rdfVocabulary": "http://container.io/vocabulary/spiffy-spaceships/uuid-string-2",
+                    "meta": {
+                        "userMsg": "Buckle up, we're taking off!",
+                        "defaultMode": "novice"
+                    }
+                }
+            ]
+        }
+    ]
 ]
 ```
 
-This allows stacking messages into a single delivery, avoiding a server response to acknowledge receipt of the message. it also enables non-sequential implementations - a particular brain module might only be concerned with registration after it knows what's on offer. 
+This allows stacking messages into a single delivery, avoiding a server response to acknowledge receipt of the message. it also enables non-sequential implementations - a particular brain module might only be concerned with registration after it knows what's on offer.
+
+## General description
+
+(the use of the word "packets" here represents a logical grouping, not the physical TCP / UDP datagram packets) Packets are `arrays` consisting of tuples. Each tuple comprises a message via a string describing the incoming data, followed by an object of that data. The packet identifier _should_ have an RDF Vocabulary somewhere, eventually.
+
+(It may be easier to refer to a single JSON tuple as a message, and a collection of tuples as a packet)
+
+## more formal description:
+
+Each message will consist of a JSON `Array` tuple. [ "x", { y: "z" } ]
+
+Each tuple will have as a Zero element, the message type (e.g. `registrationReq`, `capabilitiesList` as in the example above).
+
+The objects in the payload _shall_ be defined by the message type.
+
+### Initial Message Descriptions
+
+`registrationReq`: shall provide an object with enough information to register with the local group/network. This may include certificates, hashes, authentication tokens, etc.
+
+`capabilitiesList`: shall describe (_subject to change_) the devices, or services being offered. This should include enough information so that the server can access the device. Minimally, this should include a `deviceID` and a `deviceType`.
+
+`cmds`: shall reference a previously registered device, and a specific command (e.g. `read`, `calibrate`, `synchronize`).
