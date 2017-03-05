@@ -6,7 +6,7 @@ That said, the server should be tracking the clients individually; that is, each
 
 ## Frames
 
-The following is an example "frame", or "packet" from the client to the server. It includes a "registration" message and "capabilitiesList" message:
+The following is an example "frame", or "packet" from the client to the server. It includes a "registration" message and "capabilitiesList" message Spaceman Spiff's Spiffy Spaceship [credit: Calvin & Hobbes]:
 ```json
 [
     [
@@ -48,7 +48,7 @@ The following is an example "frame", or "packet" from the client to the server. 
 
 The above represents a fragment of the Spiffy Spaceship system. It first registers itself with a Device Engine instance, then provides 2 devices, a `button` and a `virtual`.
 
-The `button` appears simple enough, and what it does is mostly only relevant to the applications that will use it.
+The `button` appears simple enough, and what it does is mostly only relevant to the applications that will use it. Perhaps it's a doorbell on the spaceship.
 
 The `virtual`, on the other hand, may not be so simple with such commands as `takeoff` & `land`. In this case, such things are likely layered below with many components that enable the takeoff and landing, but are not visible to the Device Engine. The `meta` property becomes useful here, as the Device Engine can forward on the meta values to the application so that there may be a button rendered that, when clicked, starts the Spaceship or makes it take-off.
 
