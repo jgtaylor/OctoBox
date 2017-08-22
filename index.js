@@ -42,24 +42,24 @@ function fSearch (obj, re) {
 function parseMsg(msg) {
 	try {
 		Array.isArray(msg);
-
-		switch (msg[0]) {
-		case "registrationReq": {
-			registerClient(msg.clientID);
-			break;
-		}
-		case "capabilitiesList": {
-			devices.add(msg);
-			break;
-		}
-		default: {
-			console.log("Bad Message - no parser.");
-			break;
-		}
-		}
 	} catch (err) {
 		throw "Error: %s", err;
 	}
+	switch (msg[0]) {
+	case "registrationReq": {
+		registerClient(msg.clientID);
+		break;
+	}
+	case "capabilitiesList": {
+		devices.add(msg);
+		break;
+	}
+	default: {
+		console.log("Bad Message - no parser.");
+		break;
+	}
+	}
+
 }
 wss.on("connection", (ws) => {
 	clientList += ws;
