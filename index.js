@@ -5,38 +5,9 @@ const EventEmitter = require("events"),
 	Devices = require("./lib/devices");
 var wss = new WebSocket.Server( { port: 8585 });
 var devices = Devices();
-var clientList;
+var clientList = [];
 function registerClient(clientID) {
 	return true;
-}
-function fSearch (obj, re) {
-	let found = false;
-	switch (typeof obj) {
-	case "string": {
-		// console.log("Found string... %s", obj);
-		let tRe = new RegExp(re, "i");
-		if (tRe.exec(obj)) {
-			console.log("Found %s in %s", re, obj);
-			found = true;
-		}
-		// console.log("%s not found.", re);
-		break;
-	}
-	case "object": {
-		if (Array.isArray(obj)) {
-			// console.log("Found array %j", obj);
-			if (obj.includes(re)) found = true;
-			break;
-			// console.log("%s not found", re);
-		} else if (obj !== null) {
-			// console.log("Found object %j", obj);
-			Object.keys(obj).forEach( (el) => {
-				if (fSearch(obj[el], re)) found = true;
-			});
-		}
-	}
-	}
-	return found;
 }
 
 function parseMsg(msg) {
@@ -62,7 +33,7 @@ function parseMsg(msg) {
 
 }
 wss.on("connection", (ws) => {
-	clientList += ws;
+	clientList.push(ws);
 	ws.on("message", (msg) => {
 		parseMsg(msg);
 	});
