@@ -24,6 +24,7 @@
 	"homepage": "https://github.com/jgtaylor/OctoBox#readme",
 	"dependencies": {
 		"moment": "^2.19.1",
+		"moment-timer": "^1.2.1",
 		"ws": "^3.0.0"
 	}
 }
