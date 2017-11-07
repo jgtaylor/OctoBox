@@ -5,8 +5,13 @@
 ## packet types
 
 `[ "cmd", {} ]`
+
 `[ "reading", [ {} ] ]`
-`[ "config", [ ] ]`
+
+`[ "state", {} ]`
+
+`[ "config", [ {} ] ]`
+
 First element of the array is a string identifying the type of contents in second element of the array.
 
 ### command packets
@@ -31,7 +36,7 @@ The array in the second element should contain an object for each reading being 
 
  1. `"value": value"` - that is, the return object will contain a key called "value" populated by a string, number or boolean.
  2. provide a key named `keys`, describing the output, as part of the config / register entry within the `"meta": {}` object. An example config `"meta"` entry for a DHT22 humidity temperature sensor could look like this:
-```json
+```javascript
 meta: {
 			keys: [ {
 				name: "rh",
@@ -63,5 +68,3 @@ This config should produce a `"reading"` packet that might look like:
 ### config / registration packets
 
 ### aditional info, additions
-
-##
