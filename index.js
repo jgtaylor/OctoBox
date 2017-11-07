@@ -9,4 +9,6 @@ var devLink = require( "./lib/protoParser.js" ),
 	} );
 
 
-lm.addAdapter( wss, devLink );
+lm.addAdapter( wss, devLink, {
+	name: "WebSocket"
+} );
