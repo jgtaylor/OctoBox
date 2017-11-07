@@ -67,7 +67,7 @@ This config should produce a `"reading"` packet that might look like:
 
 ### config / registration packets
 
-`config` packets come from the client, and describe the available "devices". Devices is in quotes because we don't really care what the device *actually* is, but rather, just an interface to it. This means that on the client, a single command - for example: `{ device: "Stage Platform", cmd: "self-level" }` would tell the device registered as "Stage Platform" to perform the command "self-level". The command, "self-level", would be implemented on the device, so that upon recieving the command, the device starts executing whatever it is supposed to do. In this example case, the device might check several acceleromiters, use pumps to extend the stage legs, etc.
+`config` packets come from the client, and describe the available "devices". Devices is in quotes because we don't really care what the device *actually* is, but rather, just an interface to it. This means that on the client, a single command - for example: `{ device: "Stage Platform", cmd: "self-level" }` would tell the device registered as "Stage Platform" to perform the command "self-level". The command, "self-level", would be implemented on the device, so that upon receiving the command, the device starts executing whatever it is supposed to do. In this example case, the device might check several accelerometers, use pumps to extend the stage legs, etc.
 
 The `config` packet should look like the following:
 
@@ -95,6 +95,6 @@ The `config` packet should look like the following:
 ];
 ```
 
-### aditional info, additions
+### additional info, additions
 
-## 
+##
