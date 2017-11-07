@@ -67,4 +67,34 @@ This config should produce a `"reading"` packet that might look like:
 
 ### config / registration packets
 
+`config` packets come from the client, and describe the available "devices". Devices is in quotes because we don't really care what the device *actually* is, but rather, just an interface to it. This means that on the client, a single command - for example: `{ device: "Stage Platform", cmd: "self-level" }` would tell the device registered as "Stage Platform" to perform the command "self-level". The command, "self-level", would be implemented on the device, so that upon recieving the command, the device starts executing whatever it is supposed to do. In this example case, the device might check several acceleromiters, use pumps to extend the stage legs, etc.
+
+The `config` packet should look like the following:
+
+```json
+[ "config",
+  [{
+    "device": "c6d2a817-0c3a-4b6f-8478-cd81628a63f5",
+    "type": "virtual",
+  	"validCmds": ["read"],
+  	"meta": {
+	  	"keys": [{
+  			"name": "rh",
+  			"metric": "humidity",
+  			"unit": "%"
+  		}, {
+	  		"name": "temp",
+	  		"metric": "temperature",
+	  		"unit": "C",
+	  		"validMax": 85,
+	  		"validMin": -20
+	  	}],
+		  "deviceName": "DHT22"
+	  }
+  }]
+];
+```
+
 ### aditional info, additions
+
+## 
