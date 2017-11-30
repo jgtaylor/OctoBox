@@ -11,7 +11,7 @@ var devLink = require( "./lib/protoParser.js" ),
 		port: 2801
 	}, () => {
 		// TODO: move this part to a client front end handler stuffy thingy.
-
+		// NOTE: This is the Admin Client stuff... NOT THE DEVICE STUFF!
 		wssAdmin.on( "connection", ( ws, req ) => {
 			console.log( "Connection from: " + req.connection.remoteAddress );
 			this.octoClientIpAddress = req.connection.remoteAddress;
@@ -35,8 +35,8 @@ var devLink = require( "./lib/protoParser.js" ),
 					case "get":
 					{
 						if ( msg[ 1 ].obj ) {
-							let toSend = lm.devices.get( msg[ 1 ].obj );
-							toSend ? ws.send( toSend.toJSON() ) :
+							let toSend = [ "detail", lm.devices.get( msg[ 1 ].obj ) ];
+							toSend ? ws.send( JSON.stringify( toSend ) ) :
 								ws.send( JSON.stringify( {
 									message: "Error: no device"
 								} ) );
