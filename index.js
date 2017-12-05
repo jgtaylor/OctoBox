@@ -13,8 +13,10 @@ var devLink = require( "./lib/protoParser.js" ),
 		// TODO: move this part to a client front end handler stuffy thingy.
 		// NOTE: This is the Admin Client stuff... NOT THE DEVICE STUFF!
 		wssAdmin.on( "connection", ( ws, req ) => {
+
 			console.log( "Connection from: " + req.connection.remoteAddress );
 			this.octoClientIpAddress = req.connection.remoteAddress;
+
 			ws.on( "message", ( msg ) => {
 				msg = JSON.parse( msg );
 				console.log( "message recieved.", msg );
@@ -23,15 +25,15 @@ var devLink = require( "./lib/protoParser.js" ),
 				case "client":
 				{
 					switch ( msg[ 1 ].cmd ) {
-					case "register":
-					{
-						console.log( "Registring client..." );
-						ws.send( JSON.stringify( {
-							message: "Registered " + this.octoClientIpAddress,
-							models: lm.devices.list()
-						} ) );
-						break;
-					}
+					// case "register":
+					// {
+					// 	console.log( "Registring client..." );
+					// 	ws.send( JSON.stringify( {
+					// 		message: "Registered " + this.octoClientIpAddress,
+					// 		models: lm.devices.list()
+					// 	} ) );
+					// 	break;
+					// }
 					case "get":
 					{
 						if ( msg[ 1 ].obj ) {
@@ -41,6 +43,11 @@ var devLink = require( "./lib/protoParser.js" ),
 									message: "Error: no device"
 								} ) );
 						}
+						break;
+					}
+					case "load":
+					{
+						ws.send( JSON.stringify( [ "lm-update", lm.toJSON() ] ) );
 						break;
 					}
 					default:
@@ -55,6 +62,11 @@ var devLink = require( "./lib/protoParser.js" ),
 				}
 			}, this );
 		}, this );
+		lm.devices.on( "add", ( msg ) => {
+			wssAdmin.clients.forEach( ( client ) => {
+				client.send( JSON.stringify( [ "lm-device-add", msg.toJSON() ] ) );
+			} );
+		} );
 
 	} );
 
