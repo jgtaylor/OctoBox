@@ -25,24 +25,26 @@ var devLink = require( "./lib/protoParser.js" ),
 				case "client":
 				{
 					switch ( msg[ 1 ].cmd ) {
-					// case "register":
-					// {
-					// 	console.log( "Registring client..." );
-					// 	ws.send( JSON.stringify( {
-					// 		message: "Registered " + this.octoClientIpAddress,
-					// 		models: lm.devices.list()
-					// 	} ) );
-					// 	break;
-					// }
-					case "get":
+					case "device-cmd":
 					{
-						if ( msg[ 1 ].obj ) {
-							let toSend = [ "detail", lm.devices.get( msg[ 1 ].obj ) ];
-							toSend ? ws.send( JSON.stringify( toSend ) ) :
-								ws.send( JSON.stringify( {
-									message: "Error: no device"
-								} ) );
-						}
+						// { cmd: 'device-cmd', details: { device: 'dccbaa81-b2e4-46e4-a2f4-84d398dd86e3', validCmd: 'read' } }
+						let details = msg[ 1 ].details;
+						lm.devices.get( msg[ 1 ].details.device )
+							.send( JSON.stringify( [ "cmd", {
+								device: details.device,
+								cmd: details.validCmd
+							} ] ) );
+						// details should have deviceID, & validCmd:
+						// { cmd: "device-cmd", details: {device: device-guid, validCmd: 'on'} }
+						// [ "cmd", { "device": "828fbaa2-4f56-4cc5-99bf-57dcb5bd85f5", "cmd": "on" } ]
+						break;
+					}
+					case "device-sync":
+					{
+						// { cmd: "device-sync", _changed: {device} }
+						console.log( "Device-Sync called." );
+						console.log( msg[ 1 ]._changed );
+						lm.devices.update( msg[ 1 ]._changed );
 						break;
 					}
 					case "load":
@@ -65,6 +67,11 @@ var devLink = require( "./lib/protoParser.js" ),
 		lm.devices.on( "add", ( msg ) => {
 			wssAdmin.clients.forEach( ( client ) => {
 				client.send( JSON.stringify( [ "lm-device-add", msg.toJSON() ] ) );
+			} );
+		} );
+		lm.devices.on( "remove", ( msg ) => {
+			wssAdmin.clients.forEach( ( client ) => {
+				client.send( JSON.stringify( [ "lm-device-remove", msg ] ) );
 			} );
 		} );
 
