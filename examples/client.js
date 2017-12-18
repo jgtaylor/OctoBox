@@ -111,14 +111,14 @@ var cfg2 = [ "config", [ {
 var ws1 = new WS( "ws://localhost:2800/devices/josh" );
 ws1.on( "open", () => {
 	ws1.send( JSON.stringify( cfg1 ) );
-	ws1.on( "message", ( msg ) => {
-		console.log( msg );
-	} );
+} );
+ws1.on( "message", ( msg ) => {
+	console.log( msg );
 } );
 var ws2 = new WS( "ws://localhost:2800/devices/josh" );
 ws2.on( "open", () => {
 	ws2.send( JSON.stringify( cfg2 ) );
-	ws2.on( "message", ( msg ) => {
-		console.log( msg );
-	} );
+} );
+ws2.on( "message", ( msg ) => {
+	console.log( msg );
 } );
