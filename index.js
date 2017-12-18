@@ -29,13 +29,17 @@ var devLink = require( "./lib/protoParser.js" ),
 					{
 						// { cmd: 'device-cmd', details: { device: 'dccbaa81-b2e4-46e4-a2f4-84d398dd86e3', validCmd: 'read' } }
 						let details = msg[ 1 ].details;
+						// lm.devices.get( msg[ 1 ].details.device )
+						// 	.send( JSON.stringify( [ "cmd", {
+						// 		device: details.device,
+						// 		cmd: details.validCmd
+						// 	} ] ) );
 						lm.devices.get( msg[ 1 ].details.device )
-							.send( JSON.stringify( [ "cmd", {
+							.send( [ "cmd", {
 								device: details.device,
 								cmd: details.validCmd
-							} ] ) );
-						// details should have deviceID, & validCmd:
-						// { cmd: "device-cmd", details: {device: device-guid, validCmd: 'on'} }
+							} ] );
+						console.log( "Trying to send to device client..." );
 						// [ "cmd", { "device": "828fbaa2-4f56-4cc5-99bf-57dcb5bd85f5", "cmd": "on" } ]
 						break;
 					}
