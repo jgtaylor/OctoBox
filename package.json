@@ -1,32 +1,36 @@
 {
-	"name": "octobox",
-	"version": "0.0.1",
-	"description": "\"sensor managed power distributor\"",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/jgtaylor/OctoBox.git"
-	},
-	"keywords": [
-		"Beaglebone",
-		"smart",
-		"plug",
-		"sensors"
-	],
-	"author": "Joshua Taylor",
-	"license": "GPL-2.0",
-	"bugs": {
-		"url": "https://github.com/jgtaylor/OctoBox/issues"
-	},
-	"homepage": "https://github.com/jgtaylor/OctoBox#readme",
-	"dependencies": {
-		"eslint": "^4.18.2",
-		"later": "^1.2.0",
-		"moment": "^2.19.3",
-		"moment-timer": "^1.2.3",
-		"ws": "^3.3.1"
-	}
+  "name": "octobox",
+  "version": "0.0.1",
+  "description": "\"sensor managed power distributor\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgtaylor/OctoBox.git"
+  },
+  "keywords": [
+    "Beaglebone",
+    "smart",
+    "plug",
+    "sensors"
+  ],
+  "author": "Joshua Taylor",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/jgtaylor/OctoBox/issues"
+  },
+  "homepage": "https://github.com/jgtaylor/OctoBox#readme",
+  "dependencies": {
+    "eslint": "^4.18.2",
+    "later": "^1.2.0",
+    "moment": "^2.19.3",
+    "moment-timer": "^1.2.3",
+    "ws": "^3.3.1",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
