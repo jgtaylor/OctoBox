@@ -23,7 +23,7 @@
 	},
 	"homepage": "https://github.com/jgtaylor/OctoBox#readme",
 	"dependencies": {
-		"eslint": "^4.18.2",
+		"eslint": "^7.0.0",
 		"later": "^1.2.0",
 		"moment": "^2.19.3",
 		"moment-timer": "^1.2.3",
